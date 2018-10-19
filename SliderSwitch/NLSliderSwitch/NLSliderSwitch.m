@@ -163,7 +163,6 @@
 		selectedAnimation.fillMode = kCAFillModeForwards;
 		[button.layer addAnimation:selectedAnimation forKey:@"selectedAnimation"];
 		if (self.selectedFontBlod) button.titleLabel.font = [UIFont boldSystemFontOfSize:[_titleFont pointSize]*SelectedScale];
-
 		//	缩小
 		CABasicAnimation *unSelectedAnimation = [CABasicAnimation animation];
 		unSelectedAnimation.keyPath = @"transform.scale";
@@ -195,7 +194,9 @@
 	if (_selectedIndex!=selectedIndex) {
 		_selectedIndex = selectedIndex;
 	}
-	[self.viewControllers[selectedIndex] viewDidScrollToVisiableArea];
+	if ([self.viewControllers[selectedIndex] respondsToSelector:@selector(viewDidScrollToVisiableArea)]) {
+		[self.viewControllers[selectedIndex] viewDidScrollToVisiableArea];
+	}
 }
 
 @end
